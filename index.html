@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="anchors-should-be-here"></div>
+    <div id="content-should-be-here"></div>
+    <!-- <a href="#part-1">Go to part 1</a>
+    <a href="#part-2">Go to part 2</a>
+    <a href="#part-3">Go to part 3</a>
+
+    <div id="part-1">
+      <h1>Part 1</h1>
+      <img src="https://picsum.photos/100/800" />
+    </div>
+
+    <div id="part-2">
+      <h1>Part 2</h1>
+      <img src="https://picsum.photos/200/500" />
+    </div>
+
+    <div id="part-3">
+      <h1>Part 3</h1>
+      <img src="https://picsum.photos/300/400" />
+    </div> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const dataArray = [
+        { id: 'part-1', imgUrl: 'https://picsum.photos/100/800' },
+        { id: 'part-2', imgUrl: 'https://picsum.photos/400/500' },
+        { id: 'part-3', imgUrl: 'https://picsum.photos/300/600' },
+        { id: 'part-4', imgUrl: 'https://picsum.photos/200/700' },
+      ];
+      
+      function drawOnScreen() {
+        const objToDraw = dataArray.find(obj => obj.id === window.location.hash.substring(1));
+        if(!objToDraw) {
+            $('#content-should-be-here').html(
+                `<h1>You entered an URL hash that does not exist!</h1>`
+            )
+        }
+ 
+        $('#content-should-be-here').html(
+            `<img src=${objToDraw.imgUrl} />`
+        )
+      }
+
+      $(document).ready(function () {
+      
+        for(let obj of dataArray) {
+            $('#anchors-should-be-here').append(
+                `<p><a href="#${obj.id}">Go to ${obj.id}</a></p>`
+                );
+        }
+
+        // When the page is ready, we need to make sure we load the hash, if there is any
+        let initialHash = window.location.hash.substring(1);
+        if(initialHash.length > 0) {  
+            drawOnScreen();
+        }
+
+        $(window).on('hashchange', function(evt) {
+            drawOnScreen();
+        });
+    });
+    </script>
+  </body>
+</html>
